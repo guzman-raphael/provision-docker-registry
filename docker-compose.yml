@@ -1,0 +1,21 @@
+# docker-compose up -d --build
+version: '2.4'
+services:
+  aws:
+    environment:
+    - AWS_ACCESS_KEY_ID
+    - AWS_SECRET_ACCESS_KEY
+    - AWS_DEFAULT_REGION
+    - URL=datajoint.io
+    - SUBDOMAINS=raphaelg
+    image: python:3.7-alpine3.9
+    working_dir: /src
+    volumes:
+      - .:/src
+    entrypoint: /bin/sh
+    command: -c "tail -f /dev/null"
+    # command: > 
+    #   -c "
+    #     ./entrypoint.sh;
+    #   "
+      

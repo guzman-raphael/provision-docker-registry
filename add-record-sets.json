@@ -1,0 +1,18 @@
+{
+  "Comment": "optional comment about the changes in this change batch request",
+  "Changes": [
+    {
+      "Action": "DELETE",
+      "ResourceRecordSet": {
+        "Name": "raphaelg.datajoint.io",
+        "Type": "A",
+        "TTL": 300,
+        "ResourceRecords": [
+          {
+            "Value": "3.13.18.230"
+          }
+        ]
+      }
+    }
+  ]
+}

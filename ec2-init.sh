@@ -227,7 +227,7 @@ create_volume() {
     echo "-----------------|CREATE EBS VOLUME|-----------------"
     # First time only
     AVAIL_ZONE=$(aws ec2 describe-instances --filters "Name=tag:Name,Values=docker-mgmt" | jq -r '.Reservations[].Instances[] | select(.State.Name|test("running")) | .Placement.AvailabilityZone')
-    V_ID=$(aws ec2 create-volume --size 15 --region us-east-2 --availability-zone $AVAIL_ZONE --volume-type gp2 --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=docker-data}]' | jq -r '.VolumeId')
+    V_ID=$(aws ec2 create-volume --size 100 --region us-east-2 --availability-zone $AVAIL_ZONE --volume-type gp2 --tag-specifications 'ResourceType=volume,Tags=[{Key=Name,Value=docker-data}]' | jq -r '.VolumeId')
 
     STATE=$(aws ec2 describe-volumes --volume-ids $V_ID | jq -r '.Volumes[0].State')
     while [ "$STATE" != "available" ]
@@ -280,7 +280,7 @@ detach_volume() {
     if [ "$STATE" != "available" ]
     then
         # unmount
-        ssh -F ./ssh_config docker "sudo umount /dev/xvdf"
+        ssh -F ./ssh_config docker "docker-compose -f /home/ubuntu/docker-registry/docker-compose.yml down;sudo umount /dev/xvdf"
 
         # detach
         aws ec2 detach-volume --volume-id $V_ID

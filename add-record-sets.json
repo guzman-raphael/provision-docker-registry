@@ -2,14 +2,14 @@
   "Comment": "optional comment about the changes in this change batch request",
   "Changes": [
     {
-      "Action": "DELETE",
+      "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "raphaelg.datajoint.io",
+        "Name": "registry.vathes.com",
         "Type": "A",
         "TTL": 300,
         "ResourceRecords": [
           {
-            "Value": "3.13.18.230"
+            "Value": "18.221.124.13"
           }
         ]
       }
